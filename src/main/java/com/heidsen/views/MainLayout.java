@@ -3,7 +3,7 @@ package com.heidsen.views;
 
 import com.heidsen.components.appnav.AppNav;
 import com.heidsen.components.appnav.AppNavItem;
-import com.heidsen.views.counter.CounterView;
+import com.heidsen.views.counter.BeerCounterView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -42,7 +42,7 @@ public class MainLayout extends AppLayout {
     }
 
     private Component createDrawerContent() {
-        H2 appName = new H2("Beer Counter");
+        H2 appName = new H2("Alcohol Counter");
         appName.addClassNames("app-name");
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
@@ -55,7 +55,7 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
         nav.addClassNames("app-nav");
 
-        nav.addItem(new AppNavItem("Counter", CounterView.class, "la la-glass-martini"));
+        nav.addItem(new AppNavItem("Beer Counter", BeerCounterView.class, "la la-glass-martini"));
 
         return nav;
     }

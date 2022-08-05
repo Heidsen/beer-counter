@@ -1,20 +1,22 @@
 package com.heidsen.views.counter;
 
 import com.heidsen.views.MainLayout;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
+import java.awt.*;
+
 @PageTitle("Counter")
 @Route(value = "start", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
-public class CounterView extends HorizontalLayout {
+public class BeerCounterView extends HorizontalLayout {
 
     private NumberField beerAmount;
 
@@ -24,11 +26,14 @@ public class CounterView extends HorizontalLayout {
 
     private Button resetBeer;
 
-    public CounterView() {
+    public BeerCounterView() {
 
-        beerAmount = new NumberField("amount of beer");
+        beerAmount = new NumberField();
+        beerAmount.addThemeVariants(TextFieldVariant.LUMO_ALIGN_CENTER);
+        beerAmount.setSizeFull();
+        beerAmount.setReadOnly(true);
         beerAmount.setValue(0.0);
-        beerAmount.setEnabled(false);
+
         oneFifthLiter = new Button("0,2l");
         oneFifthLiter.addClickListener(e -> {
             Notification.show("added 0,2l ");
@@ -49,10 +54,16 @@ public class CounterView extends HorizontalLayout {
             beerAmount.setValue(0.0);
         });
 
-        setMargin(true);
-        setVerticalComponentAlignment(Alignment.END, beerAmount, oneFifthLiter, oneThirdLiter, halfLiter, resetBeer);
+        VerticalLayout layout = new VerticalLayout();
+        layout.setHorizontalComponentAlignment(Alignment.CENTER, beerAmount, oneFifthLiter,
+                oneThirdLiter, halfLiter, resetBeer);
+        layout.add(beerAmount);
+        layout.add(oneFifthLiter);
+        layout.add(oneThirdLiter);
+        layout.add(halfLiter);
+        layout.add(resetBeer);
 
-        add(beerAmount, oneFifthLiter, oneThirdLiter, halfLiter, resetBeer);
+        add(layout);
     }
 
     private Double getCurrentBeerAmount() {
